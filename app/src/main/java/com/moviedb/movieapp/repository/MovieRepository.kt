@@ -1,5 +1,6 @@
 package com.moviedb.movieapp.repository
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
@@ -13,18 +14,21 @@ import com.moviedb.movieapp.network.NetworkState
 import com.moviedb.movieapp.network.SafeApiRequest
 import com.moviedb.movieapp.network.model.MovieResult
 import com.moviedb.movieapp.room.MovieDatabase
+import com.moviedb.movieapp.utils.Utils.KEY_SORT
 
 class MovieRepository
 constructor(
     private val api : MovieApi,
-    private val db : MovieDatabase
+    private val db : MovieDatabase,
+    private val preferences: SharedPreferences
 ) : SafeApiRequest() {
 
     lateinit var moviePagedList: LiveData<PagedList<Movie>>
     lateinit var moviesDataSourceFactory: MovieDataSourceFactory
 
     suspend fun getMoviesFromCloud(page : Int) : MovieResult{
-        return apiRequest { api.getMovies(page) }
+        val sort : String = preferences.getString(KEY_SORT, "popularity.desc")!!
+        return apiRequest { api.getMovies(page, sort) }
     }
 
     fun fetchMovieList() : LiveData<PagedList<Movie>> {

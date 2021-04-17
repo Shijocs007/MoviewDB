@@ -1,5 +1,6 @@
 package com.moviedb.movieapp.di
 
+import android.content.SharedPreferences
 import com.moviedb.movieapp.repository.MovieRepository
 import com.moviedb.movieapp.network.MovieApi
 import com.moviedb.movieapp.room.MovieDatabase
@@ -22,10 +23,11 @@ object RepositoryModule {
      * */
     @Singleton
     @Provides
-    fun provideMovieRepository(api: MovieApi, movieDatabase: MovieDatabase) : MovieRepository {
+    fun provideMovieRepository(api: MovieApi, movieDatabase: MovieDatabase, preferences: SharedPreferences) : MovieRepository {
         return MovieRepository(
             api,
-            movieDatabase
+            movieDatabase,
+            preferences
         );
     }
 }

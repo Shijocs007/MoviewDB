@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface MovieApi {
 
-    @GET("movie/now_playing")
-    suspend fun getMovies(@Query("page") page : Int ) : Response<MovieResult>
+    @GET("discover/movie")
+    suspend fun getMovies(@Query("page") page : Int, @Query("sort_by") sort : String) : Response<MovieResult>
 }

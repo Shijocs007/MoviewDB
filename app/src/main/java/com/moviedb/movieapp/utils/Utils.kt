@@ -5,6 +5,8 @@ import android.util.TypedValue
 
 object Utils {
 
+    const val KEY_SORT = "sortingKey"
+
     fun dpToPx(c: Context, dp: Int): Int {
         val r = c.resources
         return Math.round(

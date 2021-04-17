@@ -29,4 +29,8 @@ constructor(
         val test = moviePagedList.value
         return moviePagedList.value?.isNullOrEmpty() ?: true
     }
+
+    fun fetchSortedMovieList() {
+        repository.fetchMovieList()
+    }
 }
